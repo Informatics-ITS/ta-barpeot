@@ -1,8 +1,8 @@
 # 🏁 Tugas Akhir (TA) - Final Project
 
-**Nama Mahasiswa**: [Nama Lengkap]  
-**NRP**: [Nomor Registrasi Pokok]  
-**Judul TA**: [Judul Tugas Akhir]  
+**Nama Mahasiswa**: Akbar Putra Asenti Priyanto 
+**NRP**: 5025211004 
+**Judul TA**: Penetration Test dan Analisis Forensik pada Drone Komersial  
 **Dosen Pembimbing**: [Nama Dosen]  
 **Dosen Ko-pembimbing**: [Nama Dosen]
 
